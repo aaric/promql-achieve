@@ -1,0 +1,50 @@
+plugins {
+	id "java"
+	id "checkstyle"
+	id "io.freefair.lombok" version "4.1.6"
+	id "org.springframework.boot" version "2.3.6.RELEASE"
+	id "io.spring.dependency-management" version "1.0.10.RELEASE"
+}
+
+group = "com.example"
+version = "0.1.0-SNAPSHOT"
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation "org.springframework.boot:spring-boot-starter-web"
+	developmentOnly "org.springframework.boot:spring-boot-devtools"
+	testImplementation("org.springframework.boot:spring-boot-starter-test") {
+		exclude group: "org.junit.vintage", module: "junit-vintage-engine"
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
+
+task checkstyle(type: Checkstyle) {
+	configFile file("${rootDir}/config/checkstyle/checkstyle.xml")
+	ignoreFailures true
+	showViolations true
+	source = fileTree("src")
+	include "**/*.java"
+	exclude "**/test/**"
+	exclude "**/build/**"
+	classpath = files()
+}
+
+task removeLombokConfig() {
+	def subProjectPath = project.projectDir
+	if (null != subProjectPath) {
+		def lombokConfigFile = new File(subProjectPath, "lombok.config")
+		if (lombokConfigFile.exists()) {
+			lombokConfigFile.delete()
+		}
+	}
+}
+
+defaultTasks "assemble"
