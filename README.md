@@ -13,5 +13,5 @@
 
 |No.|Name|Version|Remark|
 |:-:|:--:|:-----:|------|
-|1|[`client_java`](https://github.com/prometheus/client_java)|`0.9.0`|*Official, poor compatibility*|
-|2|[`micrometer-registry-prometheus`](https://micrometer.io/docs/registry/prometheus)|`1.6.1`|*Support for spring boot 2.x*|
+|1|[**client_java**](https://github.com/prometheus/client_java)|`0.9.0`|*Official, poor compatibility*|
+|2|[**micrometer-registry-prometheus**](https://micrometer.io/docs/registry/prometheus)|`1.6.1`|*Support for spring boot 2.x*|
