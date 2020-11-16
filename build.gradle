@@ -7,19 +7,26 @@ plugins {
 }
 
 group = "com.example"
-version = "0.1.0-SNAPSHOT"
+version = "0.2.0-SNAPSHOT"
 sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
-	mavenCentral()
+	maven { url "https://maven.aliyun.com/repository/public" }
+	maven { url "https://repository.incarcloud.com/content/groups/public" }
 }
 
 dependencies {
+	implementation "org.springframework.boot:spring-boot-starter-actuator"
+	implementation "io.micrometer:micrometer-registry-prometheus"
+
     implementation "io.springfox:springfox-swagger2"
 	implementation "com.github.xiaoymin:knife4j-spring-boot-starter"
 
 	implementation "org.springframework.boot:spring-boot-starter-undertow"
-	implementation "org.springframework.boot:spring-boot-starter-web"
+	implementation("org.springframework.boot:spring-boot-starter-web") {
+		exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
+	}
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude group: "org.junit.vintage", module: "junit-vintage-engine"
 	}
@@ -40,6 +47,8 @@ dependencyManagement {
 
 		dependency "io.springfox:springfox-swagger2:2.9.2"
 		dependency "com.github.xiaoymin:knife4j-spring-boot-starter:2.0.4"
+
+		dependency "io.micrometer:micrometer-registry-prometheus:1.6.1"
 	}
 }
 

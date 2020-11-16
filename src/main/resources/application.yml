@@ -12,6 +12,9 @@ management:
     web:
       exposure:
         include: "*"
+  metrics:
+    tags:
+      application: ${spring.application.name}
 
 # Logging settings
 logging:
@@ -36,3 +39,5 @@ spring:
     active: dev
   application:
     name: promql-achieve
+  main:
+    allow-bean-definition-overriding: true
