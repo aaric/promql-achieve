@@ -1,15 +1,11 @@
 package com.example.pa.api.impl;
 
 import com.example.pa.api.PrometheusApi;
-import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.MeterRegistry;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.pa.runner.PrometheusRunner;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.PostConstruct;
 
 /**
  * 测试Java监控API接口实现
@@ -21,33 +17,23 @@ import javax.annotation.PostConstruct;
 @RequestMapping("/api/prometheus")
 public class PrometheusController implements PrometheusApi {
 
-    private Counter httpGetCounter;
-    private Counter httpPostCounter;
-
-    @Autowired
-    private MeterRegistry meterRegistry;
-
-    @PostConstruct
-    private void init() {
-        httpGetCounter = meterRegistry.counter("http_get_counter", "method", "get");
-        httpPostCounter = meterRegistry.counter("http_post_counter", "method", "post");
-    }
-
     @Override
     @GetMapping("/get")
     public String get() {
         // add
-        httpGetCounter.increment();
+        PrometheusRunner.HTTP_GET_COUNTER.increment();
 
-        return "method: get - " + httpGetCounter.count();
+        // return
+        return "method: get - " + PrometheusRunner.HTTP_GET_COUNTER.count();
     }
 
     @Override
     @PostMapping("/post")
     public String post() {
         // add
-        httpPostCounter.increment();
+        PrometheusRunner.HTTP_POST_COUNTER.increment();
 
-        return "method: post - " + httpPostCounter.count();
+        // return
+        return "method: post - " + PrometheusRunner.HTTP_POST_COUNTER.count();
     }
 }
