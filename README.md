@@ -15,3 +15,21 @@
 |:-:|:--:|:-----:|------|
 |1|[`client_java`](https://github.com/prometheus/client_java)|`0.9.0`|*Official, poor compatibility*|
 |2|[`micrometer-registry-prometheus`](https://micrometer.io/docs/registry/prometheus)|`1.6.1`|*Support for spring boot 2.x*|
+
+## Prometheus Configuration
+
+> [http://localhost:8080/actuator/prometheus](http://localhost:8080/actuator/prometheus)
+
+```bash
+# su - root
+sh> tee -a /tmp/prometheus.yml <<-'EOF'
+  - job_name: 'springboot'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+    - targets: ['localhost:8080']
+EOF
+sh> docker restart prometheus
+
+# test
+promql> http_server_requests_seconds_count
+```
