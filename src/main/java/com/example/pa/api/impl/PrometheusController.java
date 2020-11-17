@@ -21,19 +21,19 @@ public class PrometheusController implements PrometheusApi {
     @GetMapping("/get")
     public String get() {
         // add
-        PrometheusRunner.HTTP_GET_COUNTER.increment();
+        PrometheusRunner.getHttpGetCounter().increment();
 
         // return
-        return "method: get - " + PrometheusRunner.HTTP_GET_COUNTER.count();
+        return "method: get - " + PrometheusRunner.getHttpGetCounter().count();
     }
 
     @Override
     @PostMapping("/post")
     public String post() {
         // add
-        PrometheusRunner.HTTP_POST_COUNTER.increment();
+        PrometheusRunner.getHttpGetCounter().increment();
 
         // return
-        return "method: post - " + PrometheusRunner.HTTP_POST_COUNTER.count();
+        return "method: post - " + PrometheusRunner.getHttpGetCounter().count();
     }
 }

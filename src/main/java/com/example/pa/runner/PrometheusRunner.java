@@ -20,25 +20,37 @@ public class PrometheusRunner implements CommandLineRunner {
     /**
      * http get counter
      */
-    public static Counter HTTP_GET_COUNTER;
+    private static Counter httpGetCounter;
 
     /**
      * http post counter
      */
-    public static Counter HTTP_POST_COUNTER;
+    private static Counter httpPostCounter;
 
     /**
      * http counter
      */
-    public static Counter HTTP_COUNTER;
+    private static Counter httpCounter;
 
     @Autowired
     private MeterRegistry registry;
 
     @Override
     public void run(String... args) throws Exception {
-        HTTP_GET_COUNTER = registry.counter("http_get_counter", "method", "get");
-        HTTP_POST_COUNTER = registry.counter("http_post_counter", "method", "post");
-        HTTP_COUNTER = registry.counter("http_counter", "method", "all");
+        httpGetCounter = registry.counter("http_get_counter", "method", "get");
+        httpPostCounter = registry.counter("http_post_counter", "method", "post");
+        httpCounter = registry.counter("http_counter", "method", "all");
+    }
+
+    public static Counter getHttpGetCounter() {
+        return httpGetCounter;
+    }
+
+    public static Counter getHttpPostCounter() {
+        return httpPostCounter;
+    }
+
+    public static Counter getHttpCounter() {
+        return httpCounter;
     }
 }

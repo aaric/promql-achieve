@@ -30,7 +30,7 @@ public class AopConfig {
     @Before("pointCut()")
     void beforeApi() {
         // add
-        PrometheusRunner.HTTP_COUNTER.increment();
+        PrometheusRunner.getHttpCounter().increment();
 
         start.set(Instant.now().toEpochMilli());
     }
