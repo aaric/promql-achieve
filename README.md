@@ -20,6 +20,8 @@
 
 > [http://localhost:8080/actuator/prometheus](http://localhost:8080/actuator/prometheus)
 
+### Static
+
 ```bash
 # su - root
 sh> tee -a /tmp/prometheus.yml <<-'EOF'
@@ -33,4 +35,35 @@ sh> docker restart prometheus
 
 # test
 promql> http_server_requests_seconds_count
+```
+
+### Dynamic
+
+```bash
+# su - root
+sh> tee -a /tmp/prometheus.yml <<-'EOF'
+  - job_name: 'springboot'
+    scrape_interval: 5s
+    metrics_path: '/actuator/prometheus'
+    file_sd_configs:
+    - files: ['/tmp/prometheus/groups/*.json']
+EOF
+sh> mkdir -p /tmp/prometheus/groups
+sh> tee /tmp/prometheus/groups/springboot-prometheus.json <<-'EOF'
+[
+    {
+        "targets": [
+            "localhost:8080"
+        ],
+        "labels": {
+            "instance": "springboot-prometheus",
+            "service": "springboot-prometheus-service"
+        }
+    }
+]
+EOF
+sh> docker restart prometheus
+
+# test
+promql> http_counter_total
 ```
