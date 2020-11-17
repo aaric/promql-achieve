@@ -5,7 +5,7 @@
 [![spring](https://img.shields.io/badge/spring-2.3.2-brightgreen.svg?style=flat&logo=spring)](https://docs.spring.io/spring-boot/docs/2.3.x-SNAPSHOT/reference/htmlsingle)
 [![gradle](https://img.shields.io/badge/gradle-6.7-brightgreen.svg?style=flat&logo=gradle)](https://docs.gradle.org/6.7/userguide/installation.html)
 [![build](https://github.com/aaric/grpc-achieve/workflows/build/badge.svg)](https://github.com/aaric/promql-achieve/actions)
-[![release](https://img.shields.io/badge/release-0.2.0-blue.svg)](https://github.com/aaric/promql-achieve/releases)
+[![release](https://img.shields.io/badge/release-0.3.0-blue.svg)](https://github.com/aaric/promql-achieve/releases)
 
 > Simple chart sample with PromQL.
 
@@ -24,6 +24,7 @@
 # su - root
 sh> tee -a /tmp/prometheus.yml <<-'EOF'
   - job_name: 'springboot'
+    scrape_interval: 5s
     metrics_path: '/actuator/prometheus'
     static_configs:
     - targets: ['localhost:8080']
