@@ -37,7 +37,7 @@ public class Swagger2Config {
                 .description("测试Prometheus API监控和图表功能。")
                 .termsOfServiceUrl("http://localhost:8080")
                 .contact(new Contact("Aaric", "", "vipaaric@gmail.com"))
-                .version("1.1.0")
+                .version("0.2.0")
                 .build();
     }
 }
