@@ -22,7 +22,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class Swagger2Config {
 
     @Bean
-    public Docket createRestApi() {
+    Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
@@ -31,13 +31,13 @@ public class Swagger2Config {
                 .build();
     }
 
-    private ApiInfo apiInfo() {
+    ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("在线API文档")
                 .description("测试Prometheus API监控和图表功能。")
                 .termsOfServiceUrl("http://localhost:8080")
                 .contact(new Contact("Aaric", "", "vipaaric@gmail.com"))
-                .version("0.2.0")
+                .version("0.3.0")
                 .build();
     }
 }
