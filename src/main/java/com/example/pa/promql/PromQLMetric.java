@@ -1,5 +1,6 @@
 package com.example.pa.promql;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -11,7 +12,8 @@ import lombok.Data;
 @Data
 public class PromQLMetric {
 
-    private String __name__;
+    @JsonProperty("__name__")
+    private String name;
 
     private String instance;
 
