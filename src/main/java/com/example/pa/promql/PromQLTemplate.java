@@ -35,17 +35,21 @@ public class PromQLTemplate {
      * @param request Request Object
      * @return
      */
-    public PromQLData<PromQLResultValue> query(PromQLRequest request) {
+    public PromQLResponse query(PromQLRequest request) {
 
         Map<String, String> uriVariables = new HashMap<>(3);
         uriVariables.put("query", request.getQuery());
         uriVariables.put("time", "" + request.getTime() / 1000);
         uriVariables.put("_", "" + Instant.now().toEpochMilli());
 
+        // http://gke-master:9090/api/v1/query?query=up&time=1606108770.369&_=1606108693847
         String requestUrl = serverAddress + "/api/v1/query?query={query}&time={time}&_={_}";
-        String data = restTemplate.getForObject(requestUrl, String.class, uriVariables);
 
-        System.err.println(data);
+        System.out.println(restTemplate.getForObject(requestUrl, String.class, uriVariables));
+
+        PromQLResponse response = restTemplate.getForObject(requestUrl, PromQLResponse.class, uriVariables);
+
+        System.err.println(response.getStatus());
 
         return null;
     }
@@ -56,7 +60,7 @@ public class PromQLTemplate {
      * @param request Request Object
      * @return
      */
-    public PromQLData<PromQLResultValues> queryRange(PromQLRangeRequest request) {
+    public PromQLResultValues queryRange(PromQLRangeRequest request) {
         return null;
     }
 }

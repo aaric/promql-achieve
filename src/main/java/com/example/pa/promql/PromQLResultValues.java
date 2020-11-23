@@ -1,7 +1,8 @@
 package com.example.pa.promql;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.util.List;
 
 /**
  * PromQL Result Values
@@ -10,8 +11,17 @@ import lombok.EqualsAndHashCode;
  * @version 0.4.0-SNAPSHOT
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class PromQLResultValues extends PromQLResult {
+public class PromQLResultValues {
 
-    private String[] value;
+    private String resultType;
+
+    private List<Values> result;
+
+    @Data
+    public static class Values {
+
+        private PromQLResultMetric metric;
+
+        private String[] value;
+    }
 }

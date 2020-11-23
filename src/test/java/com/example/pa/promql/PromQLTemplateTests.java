@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Instant;
+
 /**
  * PromQLApiUtilsTests
  *
@@ -32,8 +34,8 @@ public class PromQLTemplateTests {
 
     @Test
     public void testQuery() {
-        PromQLRequest request = new PromQLRequest("up{job=\"springboot\"}", 1606097235130L);
-        PromQLData<PromQLResultValue> data = promQLTemplate.query(request);
+        PromQLRequest request = new PromQLRequest("up{job=\"prometheus\"}", 1606108770369L);
+        PromQLResponse response = promQLTemplate.query(request);
     }
 
     @Test
