@@ -1,4 +1,4 @@
-package com.example.pa.tool;
+package com.example.pa;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
