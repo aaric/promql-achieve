@@ -12,9 +12,9 @@ import io.swagger.annotations.ApiOperation;
 @Api(tags = "测试Java监控API")
 public interface PrometheusApi {
 
-    @ApiOperation("Get")
+    @ApiOperation("GET请求计数")
     String get();
 
-    @ApiOperation("Post")
+    @ApiOperation("POST请求计数")
     String post();
 }
