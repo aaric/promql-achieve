@@ -13,14 +13,20 @@ import java.util.List;
 @Data
 public class PromQLResultValue {
 
+    /**
+     * Result Type: "matrix" | "vector" | "scalar" | "string"
+     */
     private String resultType;
 
+    /**
+     * Result Body
+     */
     private List<Value> result;
 
     @Data
     public static class Value {
 
-        private PromQLResultMetric metric;
+        private PromQLMetric metric;
 
         private String[] value;
     }

@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * PromQL Api Utils
+ * PromQL Rest Template
  *
  * @author Aaric, created on 2020-11-23T11:35.
  * @version 0.4.0-SNAPSHOT
@@ -59,6 +59,19 @@ public class PromQLTemplate {
     }
 
     /**
+     * Query Single Metric
+     *
+     * @param query PromQL Expression
+     * @param time  Query Seconds
+     * @return
+     */
+    public PromQLResponse<PromQLResultValue> query(String query, long time) {
+
+        return query(new PromQLRequest(query, time));
+    }
+
+
+    /**
      * Query Range Metric
      *
      * @param request Request Object
@@ -66,13 +79,44 @@ public class PromQLTemplate {
      */
     public PromQLResponse<PromQLResultValues> queryRange(PromQLRangeRequest request) {
 
-        Map<String, Object> uriVariables = new HashMap<>();
-        uriVariables.put("query", "up");
-        uriVariables.put("start", "1606093670.735");
-        uriVariables.put("end", "1606097270.735");
-        uriVariables.put("step", "14");
+        Map<String, Object> uriVariables = new HashMap<>(5);
+        uriVariables.put("query", request.getQuery());
+        uriVariables.put("start", request.getStart());
+        uriVariables.put("end", request.getEnd());
+        uriVariables.put("step", request.getStep());
         uriVariables.put("_", "" + Instant.now().toEpochMilli());
 
+        String url = baseUrl + "/api/v1/query_range?query={query}&start={start}&end={end}&step={step}&_={_}";
+
+        System.err.println(restTemplate.getForObject(url, String.class, uriVariables));
+
+        ResponseEntity<PromQLResponse<PromQLResultValues>> response = restTemplate.exchange(url, HttpMethod.GET, null,
+                new ParameterizedTypeReference<PromQLResponse<PromQLResultValues>>() {
+                }, uriVariables);
+
+        if (HttpStatus.OK == response.getStatusCode()) {
+            return response.getBody();
+        }
+
         return null;
+    }
+
+    /**
+     * Query Range Metric
+     *
+     * @param query PromQL Expression
+     * @param start Query Start Seconds
+     * @param end   Query End Seconds
+     * @param step  Step Seconds
+     * @return
+     */
+    public PromQLResponse<PromQLResultValues> queryRange(String query, long start, long end, int step) {
+
+        PromQLRangeRequest request = new PromQLRangeRequest(query);
+        request.setStart(start);
+        request.setEnd(end);
+        request.setStep(step);
+
+        return queryRange(request);
     }
 }

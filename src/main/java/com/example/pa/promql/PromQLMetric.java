@@ -6,10 +6,10 @@ import lombok.Data;
  * PromQL Result Metric
  *
  * @author Aaric, created on 2020-11-23T11:24.
- * @version 0.1.0-SNAPSHOT
+ * @version 0.4.0-SNAPSHOT
  */
 @Data
-public class PromQLResultMetric {
+public class PromQLMetric {
 
     private String __name__;
 

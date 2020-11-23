@@ -3,16 +3,17 @@ package com.example.pa.promql;
 import lombok.Data;
 
 /**
- * promql-achieve
+ * PromQL Response
  *
+ * @param <T> Value Type
  * @author Aaric, created on 2020-11-23T13:25.
- * @version 0.1.0-SNAPSHOT
+ * @version 0.4.0-SNAPSHOT
  */
 @Data
 public class PromQLResponse<T> {
 
     /**
-     * Status: success | error
+     * Status: "success" | "error"
      */
     private String status;
 

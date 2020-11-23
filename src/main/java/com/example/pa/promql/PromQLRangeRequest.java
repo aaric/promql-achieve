@@ -1,6 +1,7 @@
 package com.example.pa.promql;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * PromQL Range Request
@@ -9,6 +10,7 @@ import lombok.Data;
  * @version 0.4.0-SNAPSHOT
  */
 @Data
+@NoArgsConstructor
 public class PromQLRangeRequest {
 
     /**
@@ -27,7 +29,11 @@ public class PromQLRangeRequest {
     private long end;
 
     /**
-     * Step
+     * Step Seconds
      */
     private int step;
+
+    public PromQLRangeRequest(String query) {
+        this.query = query;
+    }
 }

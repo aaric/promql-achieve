@@ -45,11 +45,11 @@ public class PromQLApiTests {
      */
     @Test
     public void testQueryRange() {
-        Map<String, Object> uriVariables = new HashMap<>();
+        Map<String, Object> uriVariables = new HashMap<>(5);
         uriVariables.put("query", "up");
         uriVariables.put("start", "1606093670.735");
         uriVariables.put("end", "1606097270.735");
-        uriVariables.put("step", "14");
+        uriVariables.put("step", "15");
         uriVariables.put("_", "1606096696181");
 
         String url = "http://localhost:9090/api/v1/query_range?query={query}&start={start}&end={end}&step={step}&_={_}";
