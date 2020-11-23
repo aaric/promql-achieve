@@ -21,7 +21,7 @@ public class PromQLRequest {
     private String query;
 
     /**
-     * Query Timestamp
+     * Query Seconds
      */
     private long time;
 }

@@ -1,5 +1,9 @@
 package com.example.pa.promql;
 
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
@@ -17,15 +21,15 @@ public class PromQLTemplate {
     /**
      * Prometheus Server Address
      */
-    private String serverAddress;
+    private String baseUrl;
 
     /**
      * Spring Rest Template
      */
     private RestTemplate restTemplate;
 
-    public PromQLTemplate(String serverAddress, RestTemplate restTemplate) {
-        this.serverAddress = serverAddress;
+    public PromQLTemplate(String baseUrl, RestTemplate restTemplate) {
+        this.baseUrl = baseUrl;
         this.restTemplate = restTemplate;
     }
 
@@ -35,21 +39,21 @@ public class PromQLTemplate {
      * @param request Request Object
      * @return
      */
-    public PromQLResponse query(PromQLRequest request) {
+    public PromQLResponse<PromQLResultValue> query(PromQLRequest request) {
 
         Map<String, String> uriVariables = new HashMap<>(3);
         uriVariables.put("query", request.getQuery());
-        uriVariables.put("time", "" + request.getTime() / 1000);
+        uriVariables.put("time", "" + request.getTime());
         uriVariables.put("_", "" + Instant.now().toEpochMilli());
 
-        // http://gke-master:9090/api/v1/query?query=up&time=1606108770.369&_=1606108693847
-        String requestUrl = serverAddress + "/api/v1/query?query={query}&time={time}&_={_}";
+        String url = baseUrl + "/api/v1/query?query={query}&time={time}&_={_}";
+        ResponseEntity<PromQLResponse<PromQLResultValue>> response = restTemplate.exchange(url, HttpMethod.GET, null,
+                new ParameterizedTypeReference<PromQLResponse<PromQLResultValue>>() {
+                }, uriVariables);
 
-        System.out.println(restTemplate.getForObject(requestUrl, String.class, uriVariables));
-
-        PromQLResponse response = restTemplate.getForObject(requestUrl, PromQLResponse.class, uriVariables);
-
-        System.err.println(response.getStatus());
+        if (HttpStatus.OK == response.getStatusCode()) {
+            return response.getBody();
+        }
 
         return null;
     }
@@ -60,7 +64,15 @@ public class PromQLTemplate {
      * @param request Request Object
      * @return
      */
-    public PromQLResultValues queryRange(PromQLRangeRequest request) {
+    public PromQLResponse<PromQLResultValues> queryRange(PromQLRangeRequest request) {
+
+        Map<String, Object> uriVariables = new HashMap<>();
+        uriVariables.put("query", "up");
+        uriVariables.put("start", "1606093670.735");
+        uriVariables.put("end", "1606097270.735");
+        uriVariables.put("step", "14");
+        uriVariables.put("_", "" + Instant.now().toEpochMilli());
+
         return null;
     }
 }

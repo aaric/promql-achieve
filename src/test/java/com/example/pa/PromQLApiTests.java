@@ -33,11 +33,11 @@ public class PromQLApiTests {
      */
     @Test
     public void testQuery() {
-        String requestUrl = "http://localhost:9090/api/v1/query?query={1}&time={2}&_={3}";
-        String responseData = restTemplate.getForObject(requestUrl, String.class, "up", "1606097235.13", "1606096696180");
+        String url = "http://localhost:9090/api/v1/query?query={1}&time={2}&_={3}";
+        String data = restTemplate.getForObject(url, String.class, "up", "1606097235.13", "1606096696180");
 
-        log.info("{}", responseData);
-        Assertions.assertNotNull(responseData);
+        log.info("{}", data);
+        Assertions.assertNotNull(data);
     }
 
     /**
@@ -52,10 +52,10 @@ public class PromQLApiTests {
         uriVariables.put("step", "14");
         uriVariables.put("_", "1606096696181");
 
-        String requestUrl = "http://localhost:9090/api/v1/query_range?query={query}&start={start}&end={end}&step={step}&_={_}";
-        String responseData = restTemplate.getForObject(requestUrl, String.class, uriVariables);
+        String url = "http://localhost:9090/api/v1/query_range?query={query}&start={start}&end={end}&step={step}&_={_}";
+        String data = restTemplate.getForObject(url, String.class, uriVariables);
 
-        log.info("{}", responseData);
-        Assertions.assertNotNull(responseData);
+        log.info("{}", data);
+        Assertions.assertNotNull(data);
     }
 }

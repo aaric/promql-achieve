@@ -1,6 +1,7 @@
 package com.example.pa.promql;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,8 +35,11 @@ public class PromQLTemplateTests {
 
     @Test
     public void testQuery() {
-        PromQLRequest request = new PromQLRequest("up{job=\"prometheus\"}", 1606108770369L);
+        long current = Instant.now().getEpochSecond();
+        PromQLRequest request = new PromQLRequest("up{job=\"prometheus\"}", current);
         PromQLResponse response = promQLTemplate.query(request);
+
+        Assertions.assertEquals("success", response.getStatus());
     }
 
     @Test

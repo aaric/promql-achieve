@@ -9,7 +9,7 @@ import lombok.Data;
  * @version 0.1.0-SNAPSHOT
  */
 @Data
-public class PromQLResponse {
+public class PromQLResponse<T> {
 
     /**
      * Status: success | error
@@ -19,7 +19,7 @@ public class PromQLResponse {
     /**
      * Real Data
      */
-    private PromQLResultValue data;
+    private T data;
 
     /**
      * Error Type: bad_data...

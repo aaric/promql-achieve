@@ -17,12 +17,12 @@ public class PromQLRangeRequest {
     protected String query;
 
     /**
-     * Query Start Timestamp
+     * Query Start Seconds
      */
     private long start;
 
     /**
-     * Query End Timestamp
+     * Query End Seconds
      */
     private long end;
 
