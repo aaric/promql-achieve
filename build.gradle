@@ -78,4 +78,18 @@ task removeLombokConfig() {
 	}
 }
 
+task removeOutputLog() {
+	def subProjectPath = project.projectDir
+	if (null != subProjectPath) {
+		subProjectPath.list().each { filename ->
+			if (filename.endsWith(".log")) {
+				def logFile = new File(subProjectPath, filename)
+				if (logFile.exists()) {
+					logFile.delete()
+				}
+			}
+		}
+	}
+}
+
 defaultTasks "assemble"

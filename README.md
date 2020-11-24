@@ -7,6 +7,7 @@
 [![build](https://github.com/aaric/grpc-achieve/workflows/build/badge.svg)](https://github.com/aaric/promql-achieve/actions)
 [![release](https://img.shields.io/badge/release-0.4.0-blue.svg)](https://github.com/aaric/promql-achieve/releases)
 
+> [HTTP API | Prometheus](https://prometheus.io/docs/prometheus/2.21/querying/api/)  
 > Simple chart sample with PromQL.
 
 ## Java SDK
