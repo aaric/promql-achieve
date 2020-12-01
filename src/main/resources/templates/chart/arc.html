@@ -22,38 +22,37 @@
     <script>
         var chartSpec = {
             "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-            "description": "Vega-Lite Line Sample",
+            "description": "Vega-Lite Arc Sample",
             "width": 400,
             "height": 300,
             "data": {
                 "values": [
-                    {"x": 1, "y": 10},
-                    {"x": 2, "y": 30},
-                    {"x": 3, "y": null},
-                    {"x": 4, "y": 15},
-                    {"x": 5, "y": null},
-                    {"x": 6, "y": 40},
-                    {"x": 7, "y": 20}
+                    {"category": "cate-01", "value": 4},
+                    {"category": "cate-02", "value": 6},
+                    {"category": "cate-03", "value": 10},
+                    {"category": "cate-04", "value": 3},
+                    {"category": "cate-05", "value": 7},
+                    {"category": "cate-06", "value": 8}
                 ]
             },
             "mark": {
-                "type": "line",
-                "point": true
+                "type": "arc",
+                "innerRadius": 50
             },
             "encoding": {
-                "x": {
-                    "field": "x",
-                    "type": "quantitative",
+                "theta": {
+                    "field": "value",
+                    "type": "quantitative"
+                },
+                "color": {
+                    "field": "category",
+                    "type": "nominal",
                     "axis": {
-                        "title": "X"
+                        "title": "Category"
                     }
                 },
-                "y": {
-                    "field": "y",
-                    "type": "quantitative",
-                    "axis": {
-                        "title": "Y"
-                    }
+                "view": {
+                    "stroke": null
                 }
             }
         };
