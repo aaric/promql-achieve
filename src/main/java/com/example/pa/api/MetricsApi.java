@@ -17,4 +17,7 @@ public interface MetricsApi {
 
     @ApiOperation("Gauge")
     String gauge();
+
+    @ApiOperation("Summary")
+    String summary();
 }
