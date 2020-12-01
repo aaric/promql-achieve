@@ -1,6 +1,7 @@
 package com.example.pa.config;
 
-import com.example.pa.runner.PrometheusRunner;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -23,6 +24,15 @@ public class AopConfig {
 
     ThreadLocal<Long> start = new ThreadLocal<>();
 
+    final Counter httpCounter;
+
+    public AopConfig(final MeterRegistry registry) {
+        httpCounter = Counter.builder("custom_http_counter")
+                .description("http counter")
+                .tag("metric", "counter")
+                .register(registry);
+    }
+
     @Pointcut("execution(public * com.example.pa.api.*.*(..))")
     void pointCut() {
     }
@@ -30,7 +40,7 @@ public class AopConfig {
     @Before("pointCut()")
     void beforeApi() {
         // add
-        PrometheusRunner.getHttpCounter().increment();
+        httpCounter.increment();
 
         start.set(Instant.now().toEpochMilli());
     }
