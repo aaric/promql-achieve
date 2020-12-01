@@ -1,12 +1,9 @@
 package com.example.pa.config;
 
-import com.example.pa.runner.PrometheusRunner;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.context.annotation.Configuration;
 
 import java.time.Instant;
 
@@ -17,8 +14,8 @@ import java.time.Instant;
  * @version 0.3.0-SNAPSHOT
  */
 @Slf4j
-@Aspect
-@Configuration
+//@Aspect
+//@Configuration
 public class AopConfig {
 
     ThreadLocal<Long> start = new ThreadLocal<>();
@@ -30,7 +27,7 @@ public class AopConfig {
     @Before("pointCut()")
     void beforeApi() {
         // add
-        PrometheusRunner.getHttpCounter().increment();
+//        PrometheusRunner.getHttpCounter().increment();
 
         start.set(Instant.now().toEpochMilli());
     }
