@@ -14,4 +14,7 @@ public interface MetricsApi {
 
     @ApiOperation("Counter")
     String counter();
+
+    @ApiOperation("Gauge")
+    String gauge();
 }
