@@ -5,7 +5,7 @@
 [![spring](https://img.shields.io/badge/spring-2.3.2-brightgreen.svg?style=flat&logo=spring)](https://docs.spring.io/spring-boot/docs/2.3.x-SNAPSHOT/reference/htmlsingle)
 [![gradle](https://img.shields.io/badge/gradle-6.7-brightgreen.svg?style=flat&logo=gradle)](https://docs.gradle.org/6.7/userguide/installation.html)
 [![build](https://github.com/aaric/grpc-achieve/workflows/build/badge.svg)](https://github.com/aaric/promql-achieve/actions)
-[![release](https://img.shields.io/badge/release-0.5.0-blue.svg)](https://github.com/aaric/promql-achieve/releases)
+[![release](https://img.shields.io/badge/release-0.6.0-blue.svg)](https://github.com/aaric/promql-achieve/releases)
 
 > [HTTP API | Prometheus](https://prometheus.io/docs/prometheus/2.21/querying/api/)  
 > [Micrometer Documentation](https://micrometer.io/docs)  
