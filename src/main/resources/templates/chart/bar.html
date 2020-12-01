@@ -17,10 +17,10 @@
 </head>
 <body>
     <h1 th:text="${title}">Title</h1>
-    <div id="bar"></div>
+    <div id="chart"></div>
 
     <script>
-        var barSpec = {
+        var chartSpec = {
             $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
             data: {
                 values: [
@@ -55,6 +55,6 @@
             }
         };
 
-        vegaEmbed('#bar', barSpec);
+        vegaEmbed('#chart', chartSpec);
     </script>
 </body>

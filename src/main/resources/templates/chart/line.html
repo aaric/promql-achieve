@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}">Title</title>
+    <meta charset="utf-8">
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.17.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.17.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.12.2"></script>
+
+    <style media="screen">
+        /* Add space between Vega-Embed links  */
+        .vega-actions a {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1 th:text="${title}">Title</h1>
+    <div id="chart"></div>
+
+    <script>
+        var chartSpec = {
+            "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+            "data": {
+                "values": [
+                    {"x": 1, "y": 10},
+                    {"x": 2, "y": 30},
+                    {"x": 3, "y": null},
+                    {"x": 4, "y": 15},
+                    {"x": 5, "y": null},
+                    {"x": 6, "y": 40},
+                    {"x": 7, "y": 20}
+                ]
+            },
+            "mark": {
+                "type": "line",
+                "point": true
+            },
+            "encoding": {
+                "x": {
+                    "field": "x",
+                    "type": "quantitative",
+                    "axis": {
+                        "title": "X"
+                    }
+                },
+                "y": {
+                    "field": "y",
+                    "type": "quantitative",
+                    "axis": {
+                        "title": "Y"
+                    }
+                }
+            }
+        };
+
+        vegaEmbed('#chart', chartSpec);
+    </script>
+</body>
