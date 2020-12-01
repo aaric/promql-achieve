@@ -69,6 +69,6 @@ public class MetricsController implements MetricsApi {
         double speed = ThreadLocalRandom.current()
                 .nextDouble(10D);
         ds1.record(speed);
-        return "custom_ds1_count: " + ds1.count();
+        return "custom_ds1_max: " + ds1.max();
     }
 }
