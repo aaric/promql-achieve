@@ -24,6 +24,6 @@ public class VegaLiteController implements VegaLitePage {
 
         model.addAttribute("title", "Vega-Lite " + StringUtils.capitalize(mark) + " Sample");
 
-        return "vega/" + mark;
+        return "chart/" + mark;
     }
 }
