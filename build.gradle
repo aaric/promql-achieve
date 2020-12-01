@@ -16,6 +16,8 @@ repositories {
 }
 
 dependencies {
+	implementation "org.apache.commons:commons-lang3"
+
 	implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
 
 	implementation "org.springframework.boot:spring-boot-starter-aop"
@@ -47,6 +49,8 @@ dependencyManagement {
 			entry "slf4j-simple"
 			entry "slf4j-log4j12"
 		}
+
+		dependency "org.apache.commons:commons-lang3:3.10"
 
 		dependency "io.springfox:springfox-swagger2:2.9.2"
 		dependency "com.github.xiaoymin:knife4j-spring-boot-starter:2.0.4"

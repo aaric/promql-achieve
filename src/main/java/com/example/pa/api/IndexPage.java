@@ -13,6 +13,6 @@ import org.springframework.ui.Model;
 @Api(tags = "IndexPage")
 public interface IndexPage {
 
-    @ApiOperation("index")
+    @ApiOperation("Index")
     String home(Model model);
 }

@@ -20,7 +20,7 @@ public class IndexController implements IndexPage {
     @GetMapping("/home")
     public String home(Model model) {
 
-        model.addAttribute("title", "this is a page");
+        model.addAttribute("title", "Vega-Lite Bar Sample");
 
         return "home";
     }
