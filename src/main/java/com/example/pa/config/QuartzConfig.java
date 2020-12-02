@@ -1,12 +1,12 @@
 package com.example.pa.config;
 
 import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -24,11 +24,19 @@ public class QuartzConfig {
     @Autowired
     MeterRegistry registry;
 
-    @Scheduled(cron = "0/5 * * * * ?")
+//    @Scheduled(cron = "0/5 * * * * ?")
     void fakeMetricsCounter() {
         double sum = ThreadLocalRandom.current()
                 .nextDouble(10D);
         Counter c1 = registry.get("custom_c1").counter();
         c1.increment(sum);
+    }
+
+//    @Scheduled(cron = "0/5 * * * * ?")
+    void fakeMetricsGauge() {
+        Gauge g1 = registry.get("custom_g1").gauge();
+        double speed = ThreadLocalRandom.current()
+                .nextDouble(120D);
+//        g1.getAndSet(speed);
     }
 }
