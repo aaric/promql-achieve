@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 /**
  * MetricsController
  *
@@ -37,25 +35,25 @@ public class MetricsController implements MetricsApi {
     @Override
     @GetMapping("/counter")
     public String counter() {
-        c1.increment();
+//        c1.increment();
         return "custom_c1_total: " + c1.count();
     }
 
     @Override
     @GetMapping("/gauge")
     public String gauge() {
-        double speed = ThreadLocalRandom.current()
-                .nextDouble(120D);
-        g1.getAndSet(speed);
+//        double speed = ThreadLocalRandom.current()
+//                .nextDouble(120D);
+//        g1.getAndSet(speed);
         return "custom_g1: " + g1.get();
     }
 
     @Override
     @GetMapping("/summary")
     public String summary() {
-        double speed = ThreadLocalRandom.current()
-                .nextDouble(10D);
-        ds1.record(speed);
+//        double speed = ThreadLocalRandom.current()
+//                .nextDouble(10D);
+//        ds1.record(speed);
         return "custom_ds1_max: " + ds1.max();
     }
 }
