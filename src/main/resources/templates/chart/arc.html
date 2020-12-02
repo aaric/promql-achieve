@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}">Title</title>
+    <meta charset="utf-8">
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.17.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.17.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.12.2"></script>
+
+    <style media="screen">
+        /* Add space between Vega-Embed links  */
+        .vega-actions a {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1 th:text="${title}">Title</h1>
+    <div id="chart"></div>
+
+    <script>
+        var chartSpec = {
+            "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+            "description": "Vega-Lite Arc Sample",
+            "width": 400,
+            "height": 300,
+            "data": {
+                "values": [
+                    {"category": "cate-01", "value": 4},
+                    {"category": "cate-02", "value": 6},
+                    {"category": "cate-03", "value": 10},
+                    {"category": "cate-04", "value": 3},
+                    {"category": "cate-05", "value": 7},
+                    {"category": "cate-06", "value": 8}
+                ]
+            },
+            "mark": {
+                "type": "arc",
+                "innerRadius": 50
+            },
+            "encoding": {
+                "theta": {
+                    "field": "value",
+                    "type": "quantitative"
+                },
+                "color": {
+                    "field": "category",
+                    "type": "nominal",
+                    "axis": {
+                        "title": "Category"
+                    }
+                },
+                "view": {
+                    "stroke": null
+                }
+            }
+        };
+
+        vegaEmbed('#chart', chartSpec);
+    </script>
+</body>

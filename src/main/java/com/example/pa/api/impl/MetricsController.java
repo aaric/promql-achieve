@@ -4,13 +4,12 @@ import com.example.pa.api.MetricsApi;
 import com.google.common.util.concurrent.AtomicDouble;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.DistributionSummary;
-import io.micrometer.core.instrument.Gauge;
-import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Timer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * MetricsController
@@ -22,53 +21,72 @@ import java.util.concurrent.ThreadLocalRandom;
 @RequestMapping("/api/metrics")
 public class MetricsController implements MetricsApi {
 
-    private final Counter c1;
-    private final AtomicDouble g1;
-    private final DistributionSummary ds1;
+    @Autowired
+    @Qualifier("c1")
+    private Counter c1;
 
-    public MetricsController(final MeterRegistry registry) {
-        c1 = Counter.builder("custom_c1")
-                .description("c1 desc")
-                .tag("metric", "counter")
-                .register(registry);
+    @Autowired
+    @Qualifier("g1")
+    private AtomicDouble g1;
 
-        g1 = new AtomicDouble(0);
-        Gauge.builder("custom_g1", g1, AtomicDouble::get)
-                .description("g1 desc")
-                .tag("metric", "gauge")
-                .register(registry);
+    @Autowired
+    @Qualifier("ds1")
+    private DistributionSummary ds1;
 
-        ds1 = DistributionSummary.builder("custom_ds1")
-                .description("ds1 desc")
-                .tag("metric", "summary")
-                .minimumExpectedValue(1D)
-                .maximumExpectedValue(10D)
-                .publishPercentiles(0.5, 0.75, 0.9)
-                .register(registry);
-    }
+    @Autowired
+    @Qualifier("t1")
+    private Timer t1;
 
+    /**
+     * custom_c1_total{application="springboot",common="metrics",metric="counter",} 17.72959922644321
+     */
     @Override
     @GetMapping("/counter")
     public String counter() {
-        c1.increment();
+//        c1.increment();
         return "custom_c1_total: " + c1.count();
     }
 
+    /**
+     * custom_g1{application="springboot",common="metrics",metric="gauge",} 80.24004896675703
+     */
     @Override
     @GetMapping("/gauge")
     public String gauge() {
-        double speed = ThreadLocalRandom.current()
-                .nextDouble(120D);
-        g1.getAndSet(speed);
+//        double speed = ThreadLocalRandom.current()
+//                .nextDouble(120D);
+//        g1.getAndSet(speed);
         return "custom_g1: " + g1.get();
     }
 
+    /**
+     * custom_ds1_max{application="springboot",common="metrics",metric="summary",} 7.1909231690242095
+     *
+     * custom_ds1{application="springboot",common="metrics",metric="summary",quantile="0.5",} 4.5
+     * custom_ds1{application="springboot",common="metrics",metric="summary",quantile="0.75",} 7.0
+     * custom_ds1{application="springboot",common="metrics",metric="summary",quantile="0.9",} 7.0
+     *
+     * custom_ds1_count{application="springboot",common="metrics",metric="summary",} 2.0
+     * custom_ds1_sum{application="springboot",common="metrics",metric="summary",} 11.877071277423703
+     */
     @Override
     @GetMapping("/summary")
     public String summary() {
-        double speed = ThreadLocalRandom.current()
-                .nextDouble(10D);
-        ds1.record(speed);
-        return "custom_ds1_max: " + ds1.max();
+//        double speed = ThreadLocalRandom.current()
+//                .nextDouble(10D);
+//        ds1.record(speed);
+        return "custom_ds1_count: " + ds1.count();
+    }
+
+    /**
+     * custom_t1_seconds_count{application="springboot",common="metrics",metric="timer",} 1.0
+     * custom_t1_seconds_sum{application="springboot",common="metrics",metric="timer",} 1.0004827
+     *
+     * custom_t1_seconds_max{application="springboot",common="metrics",metric="timer",} 1.0004827
+     */
+    @Override
+    @GetMapping("/timer")
+    public String timer() {
+        return "custom_t1_seconds_count: " + t1.count();
     }
 }
