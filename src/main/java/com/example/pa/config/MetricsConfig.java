@@ -1,10 +1,7 @@
 package com.example.pa.config;
 
 import com.google.common.util.concurrent.AtomicDouble;
-import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.DistributionSummary;
-import io.micrometer.core.instrument.Gauge;
-import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.*;
 import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,6 +46,14 @@ public class MetricsConfig {
                 .minimumExpectedValue(1D)
                 .maximumExpectedValue(10D)
                 .publishPercentiles(0.5, 0.75, 0.9)
+                .register(registry);
+    }
+
+    @Bean("t1")
+    Timer t1(final MeterRegistry registry) {
+        return Timer.builder("custom_t1")
+                .description("t1 desc")
+                .tag("metric", "timer")
                 .register(registry);
     }
 }

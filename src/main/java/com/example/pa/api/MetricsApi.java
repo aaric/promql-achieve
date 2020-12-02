@@ -20,4 +20,7 @@ public interface MetricsApi {
 
     @ApiOperation("Summary")
     String summary();
+
+    @ApiOperation("Timer")
+    String timer();
 }
