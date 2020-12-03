@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Spring Boot Launcher.
+ * spring boot launcher.
  *
  * @author Aaric, created on 2020-11-13T15:37.
  * @version 0.1.0-SNAPSHOT
@@ -13,9 +13,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class App {
 
     /**
-     * Main
+     * main
      *
-     * @param args 命令式参数
+     * @param args custom inputs
      */
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
