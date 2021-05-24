@@ -49,7 +49,7 @@ public class Swagger2Config implements InitializingBean {
                 .description("测试Prometheus API监控和图表功能。")
                 .termsOfServiceUrl(MessageFormat.format("http://{0}:{1}/doc.html", serverHost, serverPort))
                 .contact(new Contact("Aaric", "", "vipaaric@gmail.com"))
-                .version("0.3.0")
+                .version("0.8.0")
                 .build();
     }
 
