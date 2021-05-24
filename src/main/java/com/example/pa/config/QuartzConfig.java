@@ -5,14 +5,12 @@ import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.DistributionSummary;
 import io.micrometer.core.instrument.Timer;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import java.time.Instant;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
@@ -49,8 +47,7 @@ public class QuartzConfig {
                 .nextDouble(10D);
         c1.increment(sum);
 
-        log.info("c1 updated: " + DateFormatUtils.format(Instant.now().toEpochMilli(),
-                "yyyy-MM-dd HH:mm:ss"));
+        log.info("c1 updated.");
     }
 
     @Scheduled(cron = "*/2 * * * * ?")
@@ -59,8 +56,7 @@ public class QuartzConfig {
                 .nextDouble(120D);
         g1.getAndSet(speed);
 
-        log.info("g1 updated: " + DateFormatUtils.format(Instant.now().toEpochMilli(),
-                "yyyy-MM-dd HH:mm:ss"));
+        log.info("g1 updated.");
     }
 
     @Scheduled(cron = "*/3 * * * * ?")
@@ -69,8 +65,7 @@ public class QuartzConfig {
                 .nextDouble(10D);
         ds1.record(speed);
 
-        log.info("ds1 updated: " + DateFormatUtils.format(Instant.now().toEpochMilli(),
-                "yyyy-MM-dd HH:mm:ss"));
+        log.info("ds1 updated.");
     }
 
     @Scheduled(cron = "*/4 * * * * ?")
@@ -84,7 +79,6 @@ public class QuartzConfig {
             }
         });
 
-        log.info("t1 updated: " + DateFormatUtils.format(Instant.now().toEpochMilli(),
-                "yyyy-MM-dd HH:mm:ss"));
+        log.info("t1 updated.");
     }
 }

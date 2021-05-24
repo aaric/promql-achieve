@@ -1,5 +1,7 @@
 package com.example.pa.config;
 
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -11,6 +13,9 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.net.InetAddress;
+import java.text.MessageFormat;
+
 /**
  * Swagger2配置
  *
@@ -19,11 +24,18 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @EnableSwagger2
 @Configuration
-public class Swagger2Config {
+public class Swagger2Config implements InitializingBean {
+
+    @Value("localhost")
+    private String serverHost;
+
+    @Value("${server.port}")
+    private String serverPort;
 
     @Bean
     Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .host(serverHost)
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.example"))
@@ -35,9 +47,14 @@ public class Swagger2Config {
         return new ApiInfoBuilder()
                 .title("在线API文档")
                 .description("测试Prometheus API监控和图表功能。")
-                .termsOfServiceUrl("http://localhost:8080")
+                .termsOfServiceUrl(MessageFormat.format("http://{0}:{1}/doc.html", serverHost, serverPort))
                 .contact(new Contact("Aaric", "", "vipaaric@gmail.com"))
-                .version("0.3.0")
+                .version("0.8.0")
                 .build();
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        serverHost = InetAddress.getLocalHost().getHostAddress();
     }
 }
