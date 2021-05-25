@@ -5,7 +5,7 @@
 [![spring](https://img.shields.io/badge/springboot-2.3.2-brightgreen.svg?style=flat&logo=spring)](https://docs.spring.io/spring-boot/docs/2.3.x-SNAPSHOT/reference/htmlsingle)
 [![gradle](https://img.shields.io/badge/gradle-6.7-brightgreen.svg?style=flat&logo=gradle)](https://docs.gradle.org/6.7/userguide/installation.html)
 [![build](https://github.com/aaric/promql-achieve/workflows/build/badge.svg)](https://github.com/aaric/promql-achieve/actions)
-[![release](https://img.shields.io/badge/release-0.8.0-blue.svg)](https://github.com/aaric/promql-achieve/releases)
+[![release](https://img.shields.io/badge/release-0.9.0-blue.svg)](https://github.com/aaric/promql-achieve/releases)
 
 > [HTTP API | Prometheus](https://prometheus.io/docs/prometheus/2.26/querying/api/)  
 > [Micrometer Documentation](https://micrometer.io/docs)  
@@ -16,7 +16,7 @@
 |No.|Name|Version|Remark|
 |:-:|:--:|:-----:|------|
 |1|[`client_java`](https://github.com/prometheus/client_java)|`0.10.0`|*Official, poor compatibility*|
-|2|[`micrometer-registry-prometheus`](https://micrometer.io/docs/registry/prometheus)|`1.6.1`|*Support for spring boot 2.x*|
+|2|[`micrometer-registry-prometheus`](https://micrometer.io/docs/registry/prometheus)|`1.7.0`|*Support for spring boot 2.x*|
 
 ## Prometheus Configuration
 
