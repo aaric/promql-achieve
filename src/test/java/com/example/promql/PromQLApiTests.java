@@ -6,10 +6,12 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,34 +27,39 @@ import java.util.Map;
 @ExtendWith(SpringExtension.class)
 public class PromQLApiTests {
 
+    @Value("${promql.base-url}")
+    private String baseUrl;
+
     @Autowired
     private RestTemplate restTemplate;
 
     /**
-     * http://localhost:9090/api/v1/query?query=up&time=1606097235.13&_=1606096696180
+     * http://localhost:9090/api/v1/query?query=up&time=1621936105
      */
     @Test
     public void testQuery() {
-        String url = "http://localhost:9090/api/v1/query?query={1}&time={2}&_={3}";
-        String data = restTemplate.getForObject(url, String.class, "up", "1606097235.13", "1606096696180");
+        String query = "redis_commands_total{cmd=\"auth\"}";
+        String url = baseUrl + "/api/v1/query?query={0}&time={1}";
+        String data = restTemplate.getForObject(url, String.class, query, Instant.now().getEpochSecond());
 
         log.info("{}", data);
         Assertions.assertNotNull(data);
     }
 
     /**
-     * http://localhost:9090/api/v1/query_range?query=up&start=1606093670.735&end=1606097270.735&step=14&_=1606096696181
+     * http://localhost:9090/api/v1/query_range
      */
     @Test
     public void testQueryRange() {
+        Long current = Instant.now().getEpochSecond();
+        String query = "redis_commands_total{cmd=\"auth\"}";
+        String url = baseUrl + "/api/v1/query_range";
         Map<String, Object> uriVariables = new HashMap<>(5);
-        uriVariables.put("query", "up");
-        uriVariables.put("start", "1606093670.735");
-        uriVariables.put("end", "1606097270.735");
+        uriVariables.put("query", query);
+        uriVariables.put("start", current - 60 * 60); // now() - 1h
+        uriVariables.put("end", current);
         uriVariables.put("step", "15");
-        uriVariables.put("_", "1606096696181");
 
-        String url = "http://localhost:9090/api/v1/query_range?query={query}&start={start}&end={end}&step={step}&_={_}";
         String data = restTemplate.getForObject(url, String.class, uriVariables);
 
         log.info("{}", data);

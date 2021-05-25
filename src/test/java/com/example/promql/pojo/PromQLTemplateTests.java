@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestTemplate;
@@ -25,6 +26,9 @@ import java.time.Instant;
 @ExtendWith(SpringExtension.class)
 public class PromQLTemplateTests {
 
+    @Value("${promql.base-url}")
+    private String baseUrl;
+
     @Autowired
     private RestTemplate restTemplate;
 
@@ -32,14 +36,13 @@ public class PromQLTemplateTests {
 
     @BeforeEach
     public void setup() {
-        promQLTemplate = new PromQLTemplate("http://gke-master:9090", restTemplate);
+        promQLTemplate = new PromQLTemplate(baseUrl, restTemplate);
     }
 
     @Test
     public void testQuery() {
         long current = Instant.now().getEpochSecond();
-
-        PromQLRequest request = new PromQLRequest("up{job=\"prometheus\"}", current);
+        PromQLRequest request = new PromQLRequest("redis_commands_total{cmd=\"auth\"}", current);
 
         PromQLResponse<PromQLResultValue> response = promQLTemplate.query(request);
 
@@ -50,7 +53,7 @@ public class PromQLTemplateTests {
     public void testQueryRange() {
         long current = Instant.now().getEpochSecond();
 
-        PromQLRangeRequest request = new PromQLRangeRequest("up{job=\"prometheus\"}");
+        PromQLRangeRequest request = new PromQLRangeRequest("redis_commands_total{cmd=\"auth\"}");
         request.setStart(current - 60 * 5);
         request.setEnd(current);
         request.setStep(15);
