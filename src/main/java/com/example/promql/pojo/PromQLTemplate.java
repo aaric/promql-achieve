@@ -1,4 +1,4 @@
-package com.example.promql.promql;
+package com.example.promql.pojo;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;

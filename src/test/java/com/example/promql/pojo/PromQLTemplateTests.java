@@ -1,4 +1,4 @@
-package com.example.promql.promql;
+package com.example.promql.pojo;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
