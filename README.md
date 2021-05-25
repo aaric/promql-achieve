@@ -7,7 +7,7 @@
 [![build](https://github.com/aaric/promql-achieve/workflows/build/badge.svg)](https://github.com/aaric/promql-achieve/actions)
 [![release](https://img.shields.io/badge/release-0.8.0-blue.svg)](https://github.com/aaric/promql-achieve/releases)
 
-> [HTTP API | Prometheus](https://prometheus.io/docs/prometheus/2.21/querying/api/)  
+> [HTTP API | Prometheus](https://prometheus.io/docs/prometheus/2.26/querying/api/)  
 > [Micrometer Documentation](https://micrometer.io/docs)  
 > Simple chart sample with PromQL.
 
@@ -15,7 +15,7 @@
 
 |No.|Name|Version|Remark|
 |:-:|:--:|:-----:|------|
-|1|[`client_java`](https://github.com/prometheus/client_java)|`0.9.0`|*Official, poor compatibility*|
+|1|[`client_java`](https://github.com/prometheus/client_java)|`0.10.0`|*Official, poor compatibility*|
 |2|[`micrometer-registry-prometheus`](https://micrometer.io/docs/registry/prometheus)|`1.6.1`|*Support for spring boot 2.x*|
 
 ## Prometheus Configuration
